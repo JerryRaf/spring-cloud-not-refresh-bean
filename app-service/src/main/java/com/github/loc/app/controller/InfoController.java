@@ -37,7 +37,8 @@ public class InfoController {
 
   @GetMapping(value = "/binder")
   public String binder() {
-    BinderConfig binderConfig = resolverSetting(BinderConfig.class, "binder", environment, "binder");
+    BinderConfig binderConfig = resolverSetting(BinderConfig.class, "binder", environment,
+        "binder");
     log.info(binderConfig.toString());
     return "ok";
   }
@@ -46,10 +47,8 @@ public class InfoController {
       ConfigurableEnvironment environment,
       String propertiesName) {
     try {
-      return new Binder(ConfigurationPropertySources.from(environment.getPropertySources()))
-          .bind(targetName, Bindable.of(clazz))
-          .orElseThrow(
-              () -> new FatalBeanException("Could not bind DataSourceSettings properties"));
+      return Binder.get(environment).bind(targetName, Bindable.of(clazz)).orElseThrow(
+          () -> new FatalBeanException("Could not bind DataSourceSettings properties"));
     } catch (Exception e) {
       //ignore
       throw new FatalBeanException("Could not bind" + propertiesName + " properties", e);
