@@ -49,6 +49,10 @@ public class InfoController {
     try {
       return Binder.get(environment).bind(targetName, Bindable.of(clazz)).orElseThrow(
           () -> new FatalBeanException("Could not bind DataSourceSettings properties"));
+//      return new Binder(ConfigurationPropertySources.from(environment.getPropertySources()))
+//          .bind(targetName, Bindable.of(clazz))
+//          .orElseThrow(
+//              () -> new FatalBeanException("Could not bind DataSourceSettings properties"));
     } catch (Exception e) {
       //ignore
       throw new FatalBeanException("Could not bind" + propertiesName + " properties", e);

@@ -7,3 +7,6 @@ spring:
 binder:
   commonString: aaa
   varString: jobs/${spring.application.name}
+
+management.endpoints.web.exposure.include:
+  - refresh
